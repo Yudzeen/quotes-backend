@@ -24,5 +24,14 @@ public class QuoteServiceImpl implements QuoteService {
 		Quote quote = quoteRepository.getQuoteById(id);
 		return quote;
 	}
+
+	@Override
+	public Quote insert(Quote quote) {
+		Quote insertQuote = new Quote.Builder()
+				.from(quote)
+				.build();
+		quoteRepository.insert(insertQuote);
+		return insertQuote;
+	}
 	
 }

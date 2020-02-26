@@ -2,9 +2,12 @@ package models;
 
 import java.util.UUID;
 
+import utils.DateUtils;
 import utils.TextUtils;
 
 public class Quote {
+	
+	public static final String DEFAULT_QUOTEE = "Anonymous";
 	
 	String id;
 	String content;
@@ -40,13 +43,22 @@ public class Quote {
 		return dateModified;
 	}
 
-	public class Builder {
+	public static class Builder {
 		
 		String id;
 		String content;
 		String quotee;
 		String dateCreated;
 		String dateModified;
+		
+		public Builder from(Quote quote) {
+			id = quote.getId();
+			content = quote.getContent();
+			quotee = quote.getQuotee();
+			dateCreated = quote.getDateCreated();
+			dateModified = quote.getDateModified();
+			return this;
+		}
 		
 		public Builder setId(String id) {
 			this.id = id;
@@ -72,6 +84,15 @@ public class Quote {
 		public Quote build() {
 			if (TextUtils.isEmpty(id)) {
 				id = UUID.randomUUID().toString();
+			}
+			if (TextUtils.isEmpty(quotee)) {
+				quotee = DEFAULT_QUOTEE;
+			}
+			if (TextUtils.isEmpty(dateCreated)) {
+				dateCreated = DateUtils.getCurrentDate();
+			}
+			if (TextUtils.isEmpty(dateModified)) {
+				dateModified = DateUtils.getCurrentDate();
 			}
 			return new Quote(id, content, quotee, dateCreated, dateModified);
 		}
