@@ -7,5 +7,6 @@ import models.Quote;
 public interface QuoteRepository {
 
 	List<Quote> getAllQuotes();
+	Quote getQuoteById(String id);
 	
 }

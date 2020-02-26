@@ -18,5 +18,11 @@ public class QuoteServiceImpl implements QuoteService {
 	public List<Quote> getAllQuotes() {
 		return quoteRepository.getAllQuotes();
 	}
+
+	@Override
+	public Quote getQuoteById(String id) {
+		Quote quote = quoteRepository.getQuoteById(id);
+		return quote;
+	}
 	
 }
