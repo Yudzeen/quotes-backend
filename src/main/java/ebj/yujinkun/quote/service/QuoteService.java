@@ -11,5 +11,6 @@ public interface QuoteService {
 	Quote insert(Quote quote);
 	Quote update(Quote quote);
 	Quote delete(Quote quote);
+	Quote getRandomQuote();
 	
 }

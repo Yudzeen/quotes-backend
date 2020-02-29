@@ -78,4 +78,10 @@ public class QuoteController {
 		Quote deletedQuote = quoteService.delete(quote);
 		return new ResponseEntity<>(deletedQuote, HttpStatus.OK);
 	}
+	
+	@RequestMapping(value = "/random", method = RequestMethod.GET)
+	public ResponseEntity<Quote> random() {
+		Quote randomQuote = quoteService.getRandomQuote();
+		return new ResponseEntity<>(randomQuote, HttpStatus.OK);
+	}
 }

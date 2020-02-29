@@ -1,9 +1,12 @@
 package ebj.yujinkun.quote.service;
 
 import java.util.List;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import ebj.yujinkun.quote.repository.QuoteRepository;
 import models.Quote;
@@ -49,6 +52,17 @@ public class QuoteServiceImpl implements QuoteService {
 	public Quote delete(Quote quote) {
 		Quote deletedQuote = quoteRepository.delete(quote);
 		return deletedQuote;
+	}
+
+	@Override
+	public Quote getRandomQuote() {
+		List<Quote> quotes = getAllQuotes();
+		if (quotes.isEmpty()) {
+			throw new ResponseStatusException(HttpStatus.PRECONDITION_REQUIRED, "No quotes in database, insert a quote first");
+		}
+		Random random = new Random();
+		int randomIndex = random.nextInt(quotes.size());
+		return quotes.get(randomIndex);
 	}
 	
 }
