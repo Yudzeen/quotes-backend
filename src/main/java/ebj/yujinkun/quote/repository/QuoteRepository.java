@@ -9,5 +9,6 @@ public interface QuoteRepository {
 	List<Quote> getAllQuotes();
 	Quote getQuoteById(String id);
 	void insert(Quote quote);
+	void update(Quote quote);
 	
 }

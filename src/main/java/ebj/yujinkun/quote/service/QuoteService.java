@@ -9,5 +9,6 @@ public interface QuoteService {
 	List<Quote> getAllQuotes();
 	Quote getQuoteById(String id);
 	Quote insert(Quote quote);
+	Quote update(Quote quote);
 	
 }

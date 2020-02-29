@@ -50,4 +50,22 @@ public class QuoteController {
 		return new ResponseEntity<Quote>(insertedQuote, HttpStatus.CREATED);
 	}
 	
+	@RequestMapping(method = RequestMethod.PUT)
+	public ResponseEntity<Quote> update(@RequestBody Quote quote) {
+		if (TextUtils.isEmpty(quote.getId())) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Quote has no id");
+		}
+		if (TextUtils.isEmpty(quote.getContent())) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Quote has no content");
+		}
+		if (TextUtils.isEmpty(quote.getQuotee())) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Quote has no quotee");
+		}
+		if (TextUtils.isEmpty(quote.getDateCreated())) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Quote has no date created");
+		}
+		
+		Quote updatedQuote = quoteService.update(quote);
+		return new ResponseEntity<>(updatedQuote, HttpStatus.OK);
+	}
 }

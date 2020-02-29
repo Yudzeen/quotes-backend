@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.server.ResponseStatusException;
 
 import models.Quote;
 
@@ -26,7 +28,18 @@ public class QuoteRepositoryImpl implements QuoteRepository {
 
 	@Override
 	public void insert(Quote quote) {
+		if (quotesMap.containsKey(quote.getId())) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Quote with id exists");
+		}
 		quotesMap.put(quote.getId(), quote);		
+	}
+
+	@Override
+	public void update(Quote quote) {
+		if (!quotesMap.containsKey(quote.getId())) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Quote does not exist");
+		}
+		quotesMap.replace(quote.getId(), quote);	
 	}
 	
 	

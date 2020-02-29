@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import ebj.yujinkun.quote.repository.QuoteRepository;
 import models.Quote;
+import utils.DateUtils;
 
 @Service
 public class QuoteServiceImpl implements QuoteService {
@@ -33,5 +34,17 @@ public class QuoteServiceImpl implements QuoteService {
 		quoteRepository.insert(insertQuote);
 		return insertQuote;
 	}
+
+	@Override
+	public Quote update(Quote quote) {
+		Quote updateQuote = new Quote.Builder()
+				.from(quote)
+				.setDateModified(DateUtils.getCurrentDate())
+				.build();
+		quoteRepository.update(updateQuote);
+		return updateQuote;
+	}
+	
+	
 	
 }
