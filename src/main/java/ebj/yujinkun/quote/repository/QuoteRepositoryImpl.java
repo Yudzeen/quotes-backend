@@ -41,6 +41,13 @@ public class QuoteRepositoryImpl implements QuoteRepository {
 		}
 		quotesMap.replace(quote.getId(), quote);	
 	}
-	
+
+	@Override
+	public Quote delete(Quote quote) {
+		if (!quotesMap.containsKey(quote.getId())) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Quote does not exist");
+		}
+		return quotesMap.remove(quote.getId());
+	}
 	
 }

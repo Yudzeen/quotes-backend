@@ -45,6 +45,10 @@ public class QuoteServiceImpl implements QuoteService {
 		return updateQuote;
 	}
 	
-	
+	@Override
+	public Quote delete(Quote quote) {
+		Quote deletedQuote = quoteRepository.delete(quote);
+		return deletedQuote;
+	}
 	
 }

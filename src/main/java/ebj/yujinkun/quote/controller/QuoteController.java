@@ -68,4 +68,14 @@ public class QuoteController {
 		Quote updatedQuote = quoteService.update(quote);
 		return new ResponseEntity<>(updatedQuote, HttpStatus.OK);
 	}
+	
+	@RequestMapping(method = RequestMethod.DELETE)
+	public ResponseEntity<Quote> delete(@RequestBody Quote quote) {
+		if (TextUtils.isEmpty(quote.getId())) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "No id provided");
+		}
+		
+		Quote deletedQuote = quoteService.delete(quote);
+		return new ResponseEntity<>(deletedQuote, HttpStatus.OK);
+	}
 }

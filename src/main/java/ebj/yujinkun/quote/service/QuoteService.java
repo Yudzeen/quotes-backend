@@ -10,5 +10,6 @@ public interface QuoteService {
 	Quote getQuoteById(String id);
 	Quote insert(Quote quote);
 	Quote update(Quote quote);
+	Quote delete(Quote quote);
 	
 }
