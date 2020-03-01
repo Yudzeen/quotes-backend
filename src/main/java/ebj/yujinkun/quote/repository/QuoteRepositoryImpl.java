@@ -1,9 +1,11 @@
 package ebj.yujinkun.quote.repository;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.server.ResponseStatusException;
@@ -12,42 +14,50 @@ import models.Quote;
 
 @Repository
 public class QuoteRepositoryImpl implements QuoteRepository {
-
-	// TODO: Currently using in-memory DB, change to MongoDB implementation
-	private static HashMap<String, Quote> quotesMap = new HashMap<>();
+	
+	@Autowired
+	MongoTemplate mongoTemplate;
 	
 	@Override
 	public List<Quote> getAllQuotes() {
-		return new ArrayList<>(quotesMap.values());
+		List<Quote> quotes = mongoTemplate.findAll(Quote.class);
+		return quotes;
 	}
 	
 	@Override
 	public Quote getQuoteById(String id) {
-		return quotesMap.get(id);
+		Query query = new Query(Criteria.where("id").is(id));
+		Quote quote = mongoTemplate.findOne(query, Quote.class);
+		return quote;
 	}
 
 	@Override
-	public void insert(Quote quote) {
-		if (quotesMap.containsKey(quote.getId())) {
+	public void insertQuote(Quote quote) {
+		if (containsQuote(quote)) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Quote with id exists");
 		}
-		quotesMap.put(quote.getId(), quote);		
+		mongoTemplate.insert(quote);	
 	}
 
 	@Override
-	public void update(Quote quote) {
-		if (!quotesMap.containsKey(quote.getId())) {
+	public void updateQuote(Quote quote) {
+		if (!containsQuote(quote)) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Quote does not exist");
 		}
-		quotesMap.replace(quote.getId(), quote);	
+		mongoTemplate.save(quote);
 	}
 
 	@Override
-	public Quote delete(Quote quote) {
-		if (!quotesMap.containsKey(quote.getId())) {
+	public Quote deleteQuote(Quote quote) {
+		if (!containsQuote(quote)) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Quote does not exist");
 		}
-		return quotesMap.remove(quote.getId());
+		Query query = new Query(Criteria.where("id").is(quote.getId()));
+		Quote deletedQuote = mongoTemplate.findAndRemove(query, Quote.class);
+		return deletedQuote;
 	}
-	
+
+	private boolean containsQuote(Quote quote) {
+		return getQuoteById(quote.getId()) != null;
+	}
 }
