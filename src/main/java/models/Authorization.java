@@ -7,7 +7,13 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Authorization {
 	
 	@Id
+	String id;
+	
 	String key;
+	
+	public String getId() {
+		return id;
+	}
 
 	public String getKey() {
 		return key;
