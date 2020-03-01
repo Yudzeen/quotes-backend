@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import ebj.yujinkun.auth.service.AuthService;
+import ebj.yujinkun.quote.auth.service.AuthService;
 import ebj.yujinkun.quote.service.QuoteService;
 import models.Quote;
 import utils.AuthUtils;
@@ -30,7 +30,7 @@ public class QuoteController {
 	AuthService authService;
 	
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<List<Quote>> getAllQuotes(@RequestHeader("api-key") String apiKey) {
+	public ResponseEntity<List<Quote>> getAllQuotes(@RequestHeader("x-api-key") String apiKey) {
 		AuthUtils.validateApiKey(authService, apiKey);
 		
 		List<Quote> quotes = quoteService.getAllQuotes();
@@ -38,7 +38,7 @@ public class QuoteController {
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<Quote> getQuoteById(@RequestHeader("api-key") String apiKey, @PathVariable String id) {
+	public ResponseEntity<Quote> getQuoteById(@RequestHeader("x-api-key") String apiKey, @PathVariable String id) {
 		AuthUtils.validateApiKey(authService, apiKey);
 		
 		Quote quote = quoteService.getQuoteById(id);
@@ -51,7 +51,7 @@ public class QuoteController {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Quote> insert(@RequestHeader("api-key") String apiKey, @RequestBody Quote quote) {
+	public ResponseEntity<Quote> insert(@RequestHeader("x-api-key") String apiKey, @RequestBody Quote quote) {
 		AuthUtils.validateApiKey(authService, apiKey);
 		
 		QuoteValidationUtils.validateContent(quote.getContent());
@@ -61,7 +61,7 @@ public class QuoteController {
 	}
 	
 	@RequestMapping(method = RequestMethod.PUT)
-	public ResponseEntity<Quote> update(@RequestHeader("api-key") String apiKey, @RequestBody Quote quote) {
+	public ResponseEntity<Quote> update(@RequestHeader("x-api-key") String apiKey, @RequestBody Quote quote) {
 		AuthUtils.validateApiKey(authService, apiKey);
 		
 		QuoteValidationUtils.validateId(quote.getId());
@@ -74,7 +74,7 @@ public class QuoteController {
 	}
 	
 	@RequestMapping(method = RequestMethod.DELETE)
-	public ResponseEntity<Quote> delete(@RequestHeader("api-key") String apiKey, @RequestBody Quote quote) {
+	public ResponseEntity<Quote> delete(@RequestHeader("x-api-key") String apiKey, @RequestBody Quote quote) {
 		AuthUtils.validateApiKey(authService, apiKey);
 		
 		QuoteValidationUtils.validateId(quote.getId());
@@ -84,7 +84,7 @@ public class QuoteController {
 	}
 	
 	@RequestMapping(value = "/random", method = RequestMethod.GET)
-	public ResponseEntity<Quote> random(@RequestHeader("api-key") String apiKey) {
+	public ResponseEntity<Quote> random(@RequestHeader("x-api-key") String apiKey) {
 		AuthUtils.validateApiKey(authService, apiKey);
 		
 		Quote randomQuote = quoteService.getRandomQuote();
