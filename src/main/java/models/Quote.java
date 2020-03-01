@@ -2,14 +2,20 @@ package models;
 
 import java.util.UUID;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import utils.DateUtils;
 import utils.TextUtils;
 
+@Document
 public class Quote {
 	
 	public static final String DEFAULT_QUOTEE = "Anonymous";
 	
+	@Id
 	String id;
+	
 	String content;
 	String quotee;
 	String dateCreated;
@@ -41,6 +47,12 @@ public class Quote {
 
 	public String getDateModified() {
 		return dateModified;
+	}
+
+	@Override
+	public String toString() {
+		return "Quote [id=" + id + ", content=" + content + ", quotee=" + quotee + ", dateCreated=" + dateCreated
+				+ ", dateModified=" + dateModified + "]";
 	}
 
 	public static class Builder {

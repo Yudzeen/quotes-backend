@@ -34,7 +34,7 @@ public class QuoteServiceImpl implements QuoteService {
 		Quote insertQuote = new Quote.Builder()
 				.from(quote)
 				.build();
-		quoteRepository.insert(insertQuote);
+		quoteRepository.insertQuote(insertQuote);
 		return insertQuote;
 	}
 
@@ -44,13 +44,13 @@ public class QuoteServiceImpl implements QuoteService {
 				.from(quote)
 				.setDateModified(DateUtils.getCurrentDate())
 				.build();
-		quoteRepository.update(updateQuote);
+		quoteRepository.updateQuote(updateQuote);
 		return updateQuote;
 	}
 	
 	@Override
 	public Quote delete(Quote quote) {
-		Quote deletedQuote = quoteRepository.delete(quote);
+		Quote deletedQuote = quoteRepository.deleteQuote(quote);
 		return deletedQuote;
 	}
 
