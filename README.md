@@ -61,3 +61,6 @@ All HTTP requests made should include the following header/s:
 </table>
 
 For sample requests and responses, refer to the Postman collection/s in /postman folder.
+
+## License
+Check [LICENSE](https://github.com/Yudzeen/quotes-backend/blob/master/LICENSE) file.
