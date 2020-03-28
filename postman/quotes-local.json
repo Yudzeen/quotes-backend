@@ -60,6 +60,11 @@
 						"name": "Content-Type",
 						"value": "application/json",
 						"type": "text"
+					},
+					{
+						"key": "x-api-key",
+						"value": "8ae6699a264f38bd82d82da20ed3aea0c28f53066003f6fd37dd578f882fc0ae",
+						"type": "text"
 					}
 				],
 				"body": {
@@ -121,7 +126,7 @@
 			"response": []
 		},
 		{
-			"name": "DELETE /quotes",
+			"name": "DELETE /quotes/{id}",
 			"request": {
 				"method": "DELETE",
 				"header": [
@@ -130,11 +135,16 @@
 						"name": "Content-Type",
 						"value": "application/json",
 						"type": "text"
+					},
+					{
+						"key": "x-api-key",
+						"value": "8ae6699a264f38bd82d82da20ed3aea0c28f53066003f6fd37dd578f882fc0ae",
+						"type": "text"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"id\": \"10b0cde3-88f6-4e8e-825e-3f51d9fdf2aa\"\r\n}",
+					"raw": "",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -142,14 +152,15 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/quotes",
+					"raw": "http://localhost:8080/quotes/94d804fd-71be-4092-b5a6-934f986b33e6",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"quotes"
+						"quotes",
+						"94d804fd-71be-4092-b5a6-934f986b33e6"
 					]
 				}
 			},
