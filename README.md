@@ -31,7 +31,7 @@ A backend service illustrating web server development which utilizes Java, Sprin
     </tr>
     <tr>
       <td>DELETE</td>
-      <td>/quotes</td>
+      <td>/quotes/{id}</td>
       <td>Delete quote</td>
     </tr>
     <tr>
