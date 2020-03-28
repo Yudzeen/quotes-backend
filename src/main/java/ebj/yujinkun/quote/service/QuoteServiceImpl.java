@@ -49,8 +49,8 @@ public class QuoteServiceImpl implements QuoteService {
 	}
 	
 	@Override
-	public Quote delete(Quote quote) {
-		Quote deletedQuote = quoteRepository.deleteQuote(quote);
+	public Quote delete(String id) {
+		Quote deletedQuote = quoteRepository.deleteQuote(id);
 		return deletedQuote;
 	}
 

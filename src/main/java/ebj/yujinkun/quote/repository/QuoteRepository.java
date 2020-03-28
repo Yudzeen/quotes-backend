@@ -10,6 +10,6 @@ public interface QuoteRepository {
 	Quote getQuoteById(String id);
 	void insertQuote(Quote quote);
 	void updateQuote(Quote quote);
-	Quote deleteQuote(Quote quote);
+	Quote deleteQuote(String id);
 	
 }

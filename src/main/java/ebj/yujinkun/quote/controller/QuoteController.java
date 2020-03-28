@@ -73,13 +73,13 @@ public class QuoteController {
 		return new ResponseEntity<>(updatedQuote, HttpStatus.OK);
 	}
 	
-	@RequestMapping(method = RequestMethod.DELETE)
-	public ResponseEntity<Quote> delete(@RequestHeader("x-api-key") String apiKey, @RequestBody Quote quote) {
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+	public ResponseEntity<Quote> delete(@RequestHeader("x-api-key") String apiKey, @PathVariable String id) {
 		AuthUtils.validateApiKey(authService, apiKey);
 		
-		QuoteValidationUtils.validateId(quote.getId());
+		QuoteValidationUtils.validateId(id);
 		
-		Quote deletedQuote = quoteService.delete(quote);
+		Quote deletedQuote = quoteService.delete(id);
 		return new ResponseEntity<>(deletedQuote, HttpStatus.OK);
 	}
 	

@@ -33,7 +33,7 @@ public class QuoteRepositoryImpl implements QuoteRepository {
 
 	@Override
 	public void insertQuote(Quote quote) {
-		if (containsQuote(quote)) {
+		if (containsQuote(quote.getId())) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Quote with id exists");
 		}
 		mongoTemplate.insert(quote);	
@@ -41,23 +41,24 @@ public class QuoteRepositoryImpl implements QuoteRepository {
 
 	@Override
 	public void updateQuote(Quote quote) {
-		if (!containsQuote(quote)) {
+		if (!containsQuote(quote.getId())) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Quote does not exist");
 		}
 		mongoTemplate.save(quote);
 	}
 
 	@Override
-	public Quote deleteQuote(Quote quote) {
-		if (!containsQuote(quote)) {
+	public Quote deleteQuote(String id) {
+		if (!containsQuote(id)) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Quote does not exist");
 		}
-		Query query = new Query(Criteria.where("id").is(quote.getId()));
+		Query query = new Query(Criteria.where("id").is(id));
 		Quote deletedQuote = mongoTemplate.findAndRemove(query, Quote.class);
 		return deletedQuote;
 	}
 
-	private boolean containsQuote(Quote quote) {
-		return getQuoteById(quote.getId()) != null;
+	private boolean containsQuote(String id) {
+		return getQuoteById(id) != null;
 	}
+	
 }
