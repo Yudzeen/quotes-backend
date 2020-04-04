@@ -42,7 +42,6 @@ public class QuoteServiceImpl implements QuoteService {
 	public Quote update(Quote quote) {
 		Quote updateQuote = new Quote.Builder()
 				.from(quote)
-				.setDateModified(DateUtils.getCurrentDate())
 				.build();
 		quoteRepository.updateQuote(updateQuote);
 		return updateQuote;
